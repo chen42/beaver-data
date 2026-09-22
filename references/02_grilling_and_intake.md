@@ -1,8 +1,16 @@
 # 02. Requirements Grilling, Intake Records, and Data Dictionaries
 
-## Requirements Grilling Protocol
+## Mandatory Requirements Grilling Protocol
 
-Before touching code, cleaning data, or fitting models, pressure-test unresolved decisions across the design tree.
+Requirements Grilling is a mandatory prerequisite for EVERY analysis request. Never assume requirements or begin coding silently.
+
+### Mandatory Trigger Conditions
+Grill Me MUST be executed before taking action on:
+1. **New Analysis Tasks**: Defining the initial question, data scope, and pipeline goals.
+2. **Reanalyses**: When data changes, bugs are fixed, reviewer comments arrive, or models are refitted.
+3. **Subsequent / Follow-Up Questions**: When exploring a new subset, new outcome, or secondary hypothesis.
+4. **Model & Parameter Revisions**: When switching link functions, distributions, covariates, or random-effects structures.
+5. **Exploratory Retractions & Pivots**: When retreating from a failed exploratory branch back to baseline.
 
 ### Decision Dimensions
 - **Scientific Goal**: Target estimand, scientific question, confirmatory vs exploratory claim.
@@ -10,8 +18,10 @@ Before touching code, cleaning data, or fitting models, pressure-test unresolved
 - **Data & Structure**: Experimental unit, observational unit, identifiers, repeated measures, nesting.
 - **Cleaning Authority**: Actions requiring explicit user decision vs automated rules.
 - **Statistical Strategy**: Models, contrasts, multiplicity adjustment, sensitivity analyses.
+- **Tool Preference**: User-required or preferred analysis tool, language, package, executable, container, proprietary application, or established laboratory workflow.
+- **Tool Authority**: Whether supporting tools may be added when the selected tool cannot perform required diagnostics, plotting, reporting, or validation.
 - **Display Outputs**: Required figures, tables, accessibility needs, report structure.
-- **Reproducibility & Constraints**: Privacy, software versions, LaTeX constraints.
+- **Reproducibility & Constraints**: Privacy, software versions, software installation and licensing authority, external-service restrictions, and LaTeX constraints.
 
 ### Interview Rules
 1. Work through the active decision frontier (unresolved questions whose prerequisites are settled).
@@ -29,7 +39,9 @@ Save the confirmed interview summary as:
 ```text
 plans/<timestamp>__decisions__<analysis_slug>__grilling-summary.md
 ```
-Contains: decisions made, recommended workflow, assumptions/risks, rejected alternatives, open items, definition of done, and user confirmation.
+Contains: decisions made, approved analysis toolchain and supporting-tool authority, recommended workflow, assumptions/risks, rejected alternatives, open items, definition of done, and explicit user confirmation.
+
+**Action Gate Rule**: Substantive coding, cleaning, or modeling cannot begin until this confirmed record exists.
 
 ---
 

@@ -1,10 +1,17 @@
-# 05. Cross-Language Validation and LaTeX Reporting
+# 05. Independent Computational Validation and LaTeX Reporting
 
-## Independent Cross-Language Validation
+## Independent Cross-Engine Validation
 
-When requested, validate a result independently in Python (or Bash for file operations) to confirm computational correctness.
+When requested, validate a result with an engine or independently implemented algorithm distinct from the primary analysis. Python is one option, not the required validator.
 
-### Language-Neutral Handoff Brief
+Examples:
+- Primary R analysis: validate with Python, Julia, GNU Octave, or an appropriate Linux tool.
+- Primary Python analysis: validate with R, Julia, GNU Octave, or an independently implemented domain tool.
+- Primary Linux or domain-tool analysis: validate with a different engine, an independent implementation, a documented synthetic-data recovery test, or a separately derived calculation appropriate to the method.
+
+Two interfaces or wrappers around the same underlying numerical library do not constitute independent validation.
+
+### Language-Neutral and Tool-Neutral Handoff Brief
 Write and freeze the brief before alternate implementation begins:
 ```text
 validation/<timestamp>__brief__<analysis_slug>__<target>.md
@@ -12,24 +19,28 @@ validation/<timestamp>__brief__<analysis_slug>__<target>.md
 The brief must contain ONLY:
 1. **Goal**: Target estimand or computation to reproduce.
 2. **Input Data**: Path, dictionary path, column data types, key variables, units, inclusion/exclusion rules.
-3. **Required Output**: Output filename, structure, columns, precision, comparison criteria.
+3. **Required Output**: Output filename, structure, columns, precision, numerical tolerance, and comparison criteria.
 4. **Statistical & Algorithmic Specification**:
    - Formulas and link functions.
-   - Contrast coding (e.g. treatment contrast with explicit reference group).
-   - Estimation method (e.g. REML vs ML, OLS).
-   - Random-effects covariance structure (independent vs unstructured).
-   - Degrees of freedom method (Satterthwaite, Kenward-Roger, Wald).
-   - Random seed value and RNG method.
+   - Contrast coding with explicit reference levels.
+   - Estimation method such as REML, ML, OLS, IRLS, or another named algorithm.
+   - Random-effects covariance structure.
+   - Degrees of freedom method.
+   - Optimizer, convergence tolerance, and stopping rules when relevant.
+   - Random seed value, RNG method, thread count, and numerical precision.
+5. **Independence Requirement**: Primary engine, libraries, and implementation components that the validator must not reuse.
 
-*Strict Firewall*: Do not include R code, package calls, intermediate outputs, or target numerical answers.
+*Strict Firewall*: Do not include primary implementation code, package calls, intermediate numerical outputs, or target numerical answers.
 
-### Alternate Implementation & Comparison
-1. Implement independently in `validation/python__<slug>__<target>.py` and pin dependencies in `validation/python__<slug>__requirements.txt`.
-2. Run validation under a new `run_id` with stage `validation`.
-3. Freeze alternate outputs in `results/` and alternate figures in `figures/`.
-4. Generate comparison table: `results/<run_id>__validation__<slug>__<target>-comparison.tsv`.
-5. Write review: `validation/<run_id>__review__<slug>__<target>.md`.
-6. Classification: `matched`, `matched-within-tolerance`, `mismatched`, or `inconclusive`. A mismatch opens an issue.
+### Alternate Implementation and Comparison
+1. Select and record an independent validation engine before implementation. Use stable semantic filenames such as `validation/python__<slug>__<target>.py`, `validation/julia__<slug>__<target>.jl`, `validation/octave__<slug>__<target>.m`, or `validation/cli__<slug>__<target>.sh`.
+2. Pin dependencies or record exact executable versions and immutable container digests.
+3. Run validation under a new `run_id` with stage `validation`.
+4. Freeze alternate outputs in `results/` and alternate figures in `figures/` before comparison.
+5. Generate comparison table: `results/<run_id>__validation__<slug>__<target>-comparison.tsv`.
+6. Write review: `validation/<run_id>__review__<slug>__<target>.md`.
+7. Classify the result as `matched`, `matched-within-tolerance`, `mismatched`, or `inconclusive`. A mismatch opens an issue.
+8. Record any differences in defaults, algorithms, optimizers, convergence criteria, precision, or random-number generation that could explain discrepancies.
 
 ---
 
@@ -77,14 +88,16 @@ Every final report source must end with an invisible LaTeX comment block listing
 % role=decision-record | path=plans/20260826_083000__decisions__oxycodone-escalation__grilling-summary.md
 % role=cleaning-plan | path=plans/20260826_084500__cleaning__oxycodone-escalation__approved.md
 % role=analysis-plan | path=plans/20260826_091000__analysis-plan__oxycodone-escalation__models-and-displays.md
-% role=cleaning-script | path=scripts/01_clean_data.R | git_commit=7e2b1a4
-% role=analysis-script | path=scripts/02_fit_models.R | git_commit=8f3c2a1
-% role=figure-script | path=scripts/03_figures_tables.R | git_commit=8f3c2a1
+% role=cleaning-script | path=scripts/clean_data.sh | git_commit=7e2b1a4
+% role=analysis-script | path=scripts/fit_models.py | git_commit=8f3c2a1
+% role=figure-script | path=scripts/figures_tables.gp | git_commit=8f3c2a1
 % role=figure | path=figures/20260826_093210__analysis__oxycodone-escalation__intake-by-strain.pdf
 % role=plot-data | path=results/20260826_093210__analysis__oxycodone-escalation__intake-by-strain.csv
 % role=model-summary | path=results/20260826_093210__analysis__oxycodone-escalation__model-summary.csv
 % role=run-log | path=logs/20260826_093210__analysis__oxycodone-escalation__run.md
-% role=environment | path=renv.lock
+% role=environment | path=pyproject.toml
+% role=environment-lock | path=uv.lock
+% role=toolchain | value=python 3.14; gnuplot 6.0
 % Tracking record end
 ```
 

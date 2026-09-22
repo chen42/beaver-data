@@ -12,11 +12,11 @@ project/
 ├── figures/               # All generated diagnostic and report plots (flat, no display numbers)
 ├── results/               # Plotted data CSVs, model summaries, table fragments (flat)
 ├── reports/               # EDA reports and compiled LaTeX reports (.tex and .pdf)
-├── validation/            # Cross-language validation briefs, code, and reviews
-└── renv/                  # Approved R environment infrastructure only
+├── validation/            # Independent cross-engine validation briefs, code, and reviews
+└── renv/                  # R environment infrastructure when R participates
 ```
 
-Root-level control files allowed: `README.md`, `.gitignore`, `.here`, R project file, and `renv.lock`.
+Root-level control files allowed: `README.md`, `.gitignore`, `.here`, project files, and approved environment definitions or lockfiles such as `renv.lock`, `pyproject.toml`, `uv.lock`, `Project.toml`, and `Manifest.toml`.
 
 ## File Naming and Local Timestamps
 
@@ -28,12 +28,12 @@ Use compact, sortable local timestamps: `YYYYMMDD_HHMMSS` (e.g. `20260826_093210
 
 ## Git Tracking, Branches, and Exploratory Lineage
 
-Git tracks code, plans, issues, and environment definitions (`renv.lock`).
-- **.gitignore**: Must ignore `data/`, `figures/`, `results/`, `logs/`, `reports/`, `renv/library/`, `validation/.venv/`, `.Rhistory`, `.RData`, temporary files, and secrets.
+Git tracks code, plans, issues, and all approved environment definitions.
+- **.gitignore**: Must ignore `data/`, `figures/`, `results/`, `logs/`, `reports/`, generated environment directories (`renv/library/`, `.venv/`, `validation/.venv/`), language-specific session files (`.Rhistory`, `.RData`), temporary files, and secrets.
 - **Mainline vs Exploration**:
   - Mainline accepted work lives on `main`.
   - Non-trivial exploratory tangents (alternative models, transforms, outlier bounds) MUST use a Git branch (e.g. `explore/oxycodone-negbin`).
-- **Commits Required**: Code, plans, and `renv.lock` must be committed before executing substantive runs. Record the commit hash in the run log.
+- **Commits Required**: Code, plans, and applicable environment definitions or lockfiles must be committed before executing substantive runs. Record the commit hash in the run log.
 - **Abandoning Branches**: If exploration fails (non-convergence, singular fit, rejected by user):
   1. Commit failing code with descriptive message (e.g. `explore: failed convergence for negbin`).
   2. Switch back to baseline: `git checkout main`.
@@ -64,7 +64,12 @@ Analysis plan: plans/20260826_091000__analysis-plan__oxycodone-escalation__model
 Input data: data/20260826_090000__cleaned__oxycodone-escalation__primary.tsv
 Scripts: scripts/02_fit_models.R
 Command: Rscript --vanilla scripts/02_fit_models.R --run_id 20260826_093210
-R version: 4.4.1
+Primary analysis engine: R 4.4.1
+Toolchain: Rscript 4.4.1
+Environment records: renv.lock
+Locale: C.UTF-8
+Thread count: 1
+Numerical precision: double
 Random seed: 20260826
 Outputs: results/20260826_093210__analysis__oxycodone-escalation__model-estimates.tsv | figures/20260826_093210__analysis__oxycodone-escalation__residuals.pdf
 Validation: N/A
@@ -94,11 +99,17 @@ Bash scripts (`.sh`) may orchestrate pipelines or perform file validation:
 - Quote all variables and paths; use arrays for argument lists.
 - Check required commands before execution.
 - Use `mktemp` and `trap` for cleanup of temporary resources.
-- Pass computation to R or Python when statistical methods or floating-point math are needed.
+- Pass inferential statistics and nontrivial floating-point computation to the approved statistical or domain-specific engine. Do not implement them with shell arithmetic.
+- Use `awk` only for validated line-oriented text or TSV data. Use Miller, `qsv`, `csvkit`, DuckDB, or another CSV-aware tool for quoted CSV, embedded delimiters, or embedded newlines.
+- Set and record locale, time zone, sorting behavior, thread count, and random seeds when they can affect results.
 
-## renv Dependency Management
+## Analysis Environment and Dependency Management
 
-- `renv` records exact package versions in `renv.lock`.
-- Keep package cache outside project to avoid duplicating binaries.
-- Always explicitly source `renv/activate.R` when invoking `Rscript --vanilla`.
-- Record exact R version for every run. Treat R upgrades as new environments and new runs.
+- **R**: Record the exact R version and package versions in `renv.lock`. Keep the package cache outside the project and explicitly source `renv/activate.R` when invoking `Rscript --vanilla`.
+- **Python**: Record the exact Python version and use a locked environment such as `pyproject.toml` with `uv.lock`.
+- **Julia**: Record the exact Julia version and commit `Project.toml` with `Manifest.toml`.
+- **GNU Octave**: Record the exact Octave version and installed package list.
+- **Linux command-line tools**: Record each executable, exact version, installation source, role, and relevant defaults in the analysis plan and run log.
+- **Domain suites**: Record the software release, reference data or build, modules used, and relevant configuration.
+- **Containers**: Record the immutable image digest. A mutable image tag alone is insufficient.
+- Treat upgrades to any primary or supporting analysis tool as a new environment and a new run.
