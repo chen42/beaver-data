@@ -80,7 +80,9 @@ git clone https://github.com/chen42/beaver-data.git ~/.pi/agent/skills/beaver-da
 git clone https://github.com/chen42/beaver-data.git ~/.claude/skills/beaver-data
 ```
 
-In Pi, you can instead list the path under `"skills"` in `~/.pi/agent/settings.json`. Requirements: Bash, Git, LaTeX, and the analysis engines approved for each project (R by default).
+In Pi, run `/reload` after cloning, or list the path under `"skills"` in `~/.pi/agent/settings.json`.
+
+Requirements: Bash, Git, LaTeX, and the analysis engines approved for each project (R by default).
 
 ## License
 
