@@ -60,6 +60,13 @@ Never advance directly from exploratory plotting to cleaning proposals or statis
 
 Save the confirmed report to `reports/<run_id>__eda__<slug>__summary.md`. Present findings clearly to the user before generating cleaning proposals.
 
+## Issue File Requirements
+Each Markdown issue report in `issues/` must open, after its title and optional metadata, with these two sections in order:
+1. **Why the issue needs attention.** Explain its known or potential consequences for the data, analysis, or interpretation. State when the impact remains uncertain.
+2. **What happened during the check.** Describe what was checked, the method used, the expected and observed outcomes, and the supporting evidence. Identify affected files, observations, or runs where applicable.
+
+Distinguish confirmed observations from suspected causes. An issue may remain unresolved. Link supporting CSV/TSV files rather than adding narrative text to them. Track issue reports in Git.
+
 ## Procedure
 1. **Initialize Project and Approved Environment**: Create directories (`data/`, `scripts/`, `issues/`, `logs/`, `plans/`, `figures/`, `results/`, `reports/`, `validation/`; add `renv/` when R participates). Initialize local Git repo and `.gitignore`. Initialize `renv` for R or the appropriate pinned environment or version manifest for another toolchain. Commit baseline.
 2. **Mandatory Grilling Interview**: Interview across decision tree (goals, estimands, exclusions, cleaning authority, statistical assumptions, displays, completion criteria). Mandatory for new analyses, reanalyses, and subsequent tasks. Save confirmed summary to `plans/<timestamp>__decisions__<slug>__grilling-summary.md`.
@@ -101,3 +108,4 @@ For complete schemas, templates, and checklists, consult the bundled reference f
 6. Analysis plan and run logs identify every executable, version, environment record, role, seed, thread count, locale, and relevant numerical setting.
 7. Final LaTeX report compiles cleanly to PDF on letter paper with 0.75-inch margins, sans-serif typography, and accurate file tracking comments.
 8. Mandatory EDA findings report exists in `reports/` and documents data issues, distribution properties, assumption risks, and diagnostic visual observations before cleaning plan creation.
+9. Each Markdown issue report in `issues/` opens, after its title and optional metadata, with why the issue needs attention and what happened during the check, in that order. Supporting CSV/TSV files remain machine-readable.

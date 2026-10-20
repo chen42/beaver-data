@@ -39,7 +39,7 @@ The brief must contain ONLY:
 4. Freeze alternate outputs in `results/` and alternate figures in `figures/` before comparison.
 5. Generate comparison table: `results/<run_id>__validation__<slug>__<target>-comparison.tsv`.
 6. Write review: `validation/<run_id>__review__<slug>__<target>.md`.
-7. Classify the result as `matched`, `matched-within-tolerance`, `mismatched`, or `inconclusive`. A mismatch opens an issue.
+7. Classify the result as `matched`, `matched-within-tolerance`, `mismatched`, or `inconclusive`. A mismatch opens a Markdown issue report in `issues/`, following the Issue File Requirements in `SKILL.md`.
 8. Record any differences in defaults, algorithms, optimizers, convergence criteria, precision, or random-number generation that could explain discrepancies.
 
 ---

@@ -6,7 +6,7 @@
 project/
 ├── data/                  # Immutable raw data and generated cleaned data files (flat)
 ├── scripts/               # Stable semantic scripts tracked in Git
-├── issues/                # Documented issues and resolution records
+├── issues/                # Markdown issue reports and supporting evidence; see SKILL.md for report requirements
 ├── logs/                  # Minimal run logs, checkpoints, and analysis-index.csv
 ├── plans/                 # Grilling summaries, intake records, dictionaries, and plans
 ├── figures/               # All generated diagnostic and report plots (flat, no display numbers)
