@@ -1,0 +1,80 @@
+{
+  "skill_name": "beaver-data",
+  "evals": [
+    {
+      "id": 1,
+      "name": "grilling-before-execution",
+      "prompt": "Analyze the oral oxycodone self-administration dataset in oxycodone_raw.csv and test whether intake escalates faster in females than males.",
+      "expected_output": "A brief requirements grilling interview (at most 5 questions, bounded options, brief recommendation, without explaining why each question is important) before creating directories, initializing Git/renv, or fitting models.",
+      "files": [],
+      "expectations": [
+        "Does not run R/Python modeling scripts or modify data before user confirmation",
+        "Does not initialize Git or renv before completing the grilling round",
+        "Asks at most 5 independent questions covering estimand, experimental/analysis unit, cleaning authority, model family, and toolchain preference",
+        "Provides bounded options and a brief recommendation for each question without explaining why the question is important"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "eda-report-gate-before-cleaning",
+      "prompt": "We confirmed the grilling summary in plans/20261102_090000__decisions__oxycodone__grilling-summary.md. Now clean out the sensor-bounce outliers and fit the negative binomial GLMM.",
+      "expected_output": "Registers raw data and variable dictionary, runs the 30-item forensic EDA with multi-angle diagnostic plots, and delivers the mandatory EDA salient findings report in reports/ before proposing cleaning options or fitting models.",
+      "files": [],
+      "expectations": [
+        "Does not filter observations or fit the confirmatory GLMM before completing EDA",
+        "Generates multi-angle diagnostic plots (raincloud/ECDF, longitudinal spaghetti trajectories, faceted batch/sex views, missingness)",
+        "Writes reports/<run_id>__eda__<slug>__summary.md alerting the user to sensor bounce, distribution features, and assumption risks",
+        "Waits to propose cleaning options in plans/<timestamp>__cleaning__<slug>__options.md rather than silently deleting rows"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "no-silent-outlier-deletion",
+      "prompt": "Rat ID 42 has 4,800 active licks in Session 3, which is 5 SD above the mean. Drop that row and re-run the model.",
+      "expected_output": "A brief grilling/cleaning option record documenting the observation, possible hardware vs biological causes, impact on sample size, and options for explicit user confirmation, followed by a row-level exclusion audit in results/ once confirmed.",
+      "files": [],
+      "expectations": [
+        "Does not overwrite the raw data file in data/",
+        "Documents the exclusion rule in plans/ and records the removed row ID and reason in results/<run_id>__cleaning__<slug>__exclusion-audit.tsv",
+        "Generates a new timestamped cleaned data file rather than overwriting a previous cleaned file"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "tsv-gene-symbol-type-safety",
+      "prompt": "Write the intake and EDA script for our rat RNA-seq summary table containing gene_symbol (including MARCH1, SEPT2, and literal NA gene symbols), log2fc, and padj.",
+      "expected_output": "Script and variable dictionary that specify explicit column types (character for gene_symbol) and explicit missing-value tokens so literal 'NA', 'MARCH1', and 'SEPT2' are preserved as strings.",
+      "files": [],
+      "expectations": [
+        "Creates plans/<timestamp>__dictionary__<slug>__variables.tsv with explicit data_type and missing_codes",
+        "Passes explicit column schemas (such as readr::cols() in R or dtype in Python) rather than relying on type auto-detection",
+        "Protects literal 'NA' gene symbols and prevents 'MARCH1'/'SEPT2' from being parsed as dates"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "validation-brief-firewall",
+      "prompt": "Prepare the cross-engine validation brief to validate our primary R glmmTMB negative binomial model in Python.",
+      "expected_output": "A language-neutral validation brief in validation/<timestamp>__brief__<slug>__<target>.md containing only the goal, input data schema, required output format/tolerance, full mathematical and contrast specification, and independence requirements.",
+      "files": [],
+      "expectations": [
+        "Saves validation/<timestamp>__brief__<slug>__<target>.md before writing the validation script",
+        "Specifies exact formula, link function, contrast coding with reference levels, estimation method, and convergence/tolerance criteria",
+        "Does not include primary R code, glmmTMB package calls, intermediate outputs, or target numerical estimates in the brief"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "no-hardcoded-figure-numbers",
+      "prompt": "Generate Figure 1 showing oxycodone intake by strain and sex.",
+      "expected_output": "A plotting script that saves a semantic filename (such as figures/<run_id>__analysis__<slug>__intake-by-strain-and-sex.pdf) and matching plot data in results/, with a descriptive observation title and sample-size subtitle rather than 'Figure 1'.",
+      "files": [],
+      "expectations": [
+        "Uses a semantic filename without 'figure-1' or 'fig1'",
+        "Saves the exact plotted data to results/ with a matching semantic name and run_id",
+        "Uses a descriptive title and subtitle with sample size (N) and no hard-coded 'Figure 1' label",
+        "Uses a CVD-safe, grayscale-legible palette"
+      ]
+    }
+  ]
+}

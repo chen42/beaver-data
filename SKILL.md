@@ -1,9 +1,10 @@
 ---
-name: "beaver-data"
-description: "Meticulous, reproducible data analysis pipeline using Bash orchestration, approved statistical engines and Linux analysis tools, independent cross-engine validation, and LaTeX reporting with mandatory stage grilling and decision tracking."
-version: 7
-created: "2026-08-26"
-updated: "2026-09-22"
+name: beaver-data
+description: Meticulous, reproducible data analysis pipeline using Bash orchestration, approved statistical engines and Linux analysis tools, independent cross-engine validation, and LaTeX reporting with mandatory stage grilling and decision tracking.
+metadata:
+  version: "8"
+  created: "2026-08-26"
+  updated: "2026-11-02"
 ---
 ## When to Use
 Use for end-to-end reproducible data analysis, statistical modeling, exploratory data analysis, data cleaning, or scientific reporting using Bash orchestration, an approved statistical engine or Linux analysis toolchain, independent cross-engine validation, and LaTeX reporting with strict stage gating and decision tracking.
@@ -15,7 +16,7 @@ Use for end-to-end reproducible data analysis, statistical modeling, exploratory
 - Subsequent, follow-up, or secondary scientific questions.
 - Retractions, branch pivots, or alternative exploratory attempts.
 
-**Never start coding, modifying data, fitting models, or publishing results before completing a grilling interview round and securing explicit user confirmation.**
+**Never start coding, initializing environments, modifying data, fitting models, or publishing results before completing a grilling interview round and securing explicit user confirmation.** Inspect existing workspace files and plans read-only first so you do not ask questions local files already answer. When asking the user for a decision, do not explain why the question is important; be brief. Ask at most five independent questions per round (or one at a time when choices are coupled), provide bounded mutually exclusive options, and state a brief recommended option.
 
 ## Approved Analysis Engine and Toolchain
 R is the default statistical engine, but it is not mandatory. During requirements grilling, ask whether the user requires or prefers a specific analysis tool, language, package, executable, container, proprietary application, laboratory workflow, or domain pipeline. The user may nominate tools not listed in this skill.
@@ -68,8 +69,8 @@ Each Markdown issue report in `issues/` must open, after its title and optional 
 Distinguish confirmed observations from suspected causes. An issue may remain unresolved. Link supporting CSV/TSV files rather than adding narrative text to them. Track issue reports in Git.
 
 ## Procedure
-1. **Initialize Project and Approved Environment**: Create directories (`data/`, `scripts/`, `issues/`, `logs/`, `plans/`, `figures/`, `results/`, `reports/`, `validation/`; add `renv/` when R participates). Initialize local Git repo and `.gitignore`. Initialize `renv` for R or the appropriate pinned environment or version manifest for another toolchain. Commit baseline.
-2. **Mandatory Grilling Interview**: Interview across decision tree (goals, estimands, exclusions, cleaning authority, statistical assumptions, displays, completion criteria). Mandatory for new analyses, reanalyses, and subsequent tasks. Save confirmed summary to `plans/<timestamp>__decisions__<slug>__grilling-summary.md`.
+1. **Mandatory Grilling Interview**: Inspect existing workspace files read-only first. Interview the user across the active decision frontier (goals, estimands, exclusions, cleaning authority, statistical assumptions, toolchain preference, displays, completion criteria) using brief questions, bounded options, and a brief recommendation without explaining why each question is important. Mandatory for new analyses, reanalyses, and subsequent tasks. After explicit user confirmation, save the confirmed summary to `plans/<timestamp>__decisions__<slug>__grilling-summary.md`.
+2. **Initialize Project and Approved Environment**: Create directories (`data/`, `scripts/`, `issues/`, `logs/`, `plans/`, `figures/`, `results/`, `reports/`, `validation/`; add `renv/` when R participates). Initialize local Git repo and `.gitignore` (tracking `scripts/`, `plans/`, `issues/`, `logs/analysis-index.csv`, `logs/*.md`, `reports/*.md`, and `reports/*.tex`). Initialize `renv` for R or the appropriate pinned environment or version manifest for the approved toolchain. Commit baseline.
 3. **Register Raw Data**: Place immutable raw data in `data/`. Create `plans/<timestamp>__intake__<slug>__source-record.md` and `plans/<timestamp>__dictionary__<slug>__variables.tsv`.
 4. **Conduct Multi-Angle EDA & Deliver Findings Report**: Inspect raw distributions, missingness, outliers, artifacts, and design balance. Publish beautiful multi-angle diagnostic plot suites in `figures/`, summary tables in `results/`, and write mandatory salient findings report to `reports/<run_id>__eda__<slug>__summary.md`. Alert user to critical data issues, distribution properties, assumption risks, biological patterns, and diagnostic visual anomalies before proposing cleaning options. Never modify raw data.
 5. **Clean Data**: Propose options in `plans/<timestamp>__cleaning__<slug>__options.md`. Obtain explicit user approval and save `plans/<timestamp>__cleaning__<slug>__approved.md`. Generate cleaned CSV/TSV in `data/` and row-level exclusion/correction audits in `results/`.
@@ -87,6 +88,10 @@ For complete schemas, templates, and checklists, consult the bundled reference f
 - [03. Forensics & Cleaning](references/03_forensics_and_cleaning.md): 30-item EDA forensics checklist, multi-angle diagnostic plotting suites, cleaning approvals, and TSV type safety.
 - [04. Inference & Displays](references/04_inference_and_displays.md): Analysis-engine selection, combined analysis and display plans, comprehensive model diagnostics, figure standards, and execution protocols.
 - [05. Validation & Reports](references/05_validation_and_reports.md): Independent cross-engine validation briefs, LaTeX preamble, sans-serif setup, and file tracking comments.
+
+## Companion Skills
+- Use `weaver-text` for manuscript or grant drafting, prose revision, simulated peer review, and submission packaging of completed findings.
+- Use `honeybee-lit` for general biomedical literature reviews and `wasp-lit` for post-GWAS candidate gene-phenotype literature evaluation.
 
 ## Pitfalls
 - **Never skip Grill Me**: Do not assume user preferences or jump straight into code on new, reanalysis, or subsequent analysis requests.

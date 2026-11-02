@@ -36,6 +36,7 @@ beaver-data/
 ├── README.md
 ├── LICENSE
 ├── assets/beaver-data.jpg
+├── evals/                                # Behavior checks for stage gates and reproducibility
 └── references/
     ├── 01_foundations_git_and_bash.md    # Layout, Git, environments, run index, Bash
     ├── 02_grilling_and_intake.md         # Decision tree, intake records, variable dictionary

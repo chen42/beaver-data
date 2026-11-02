@@ -103,6 +103,7 @@ Every final report source must end with an invisible LaTeX comment block listing
 
 Compile with:
 ```bash
-latexmk -xelatex -interaction=nonstopmode -halt-on-error -file-line-error -cd reports/<report_file>.tex
+latexmk -xelatex -interaction=nonstopmode -halt-on-error -file-line-error -cd reports/<report_file>.tex && \
+  latexmk -c -cd reports/<report_file>.tex
 ```
-Publish only `.tex` and `.pdf` to `reports/`. Record compilation status in the report run log.
+Publish only `.tex` and `.pdf` (alongside Markdown EDA reports) to `reports/`. Record compilation status in the report run log.

@@ -24,13 +24,13 @@ Grill Me MUST be executed before taking action on:
 - **Reproducibility & Constraints**: Privacy, software versions, software installation and licensing authority, external-service restrictions, and LaTeX constraints.
 
 ### Interview Rules
-1. Work through the active decision frontier (unresolved questions whose prerequisites are settled).
-2. Ask tree-shaping questions first.
+1. Inspect existing workspace files and plans read-only first so you do not ask questions local files already answer.
+2. Work through the active decision frontier (unresolved questions whose prerequisites are settled), asking tree-shaping questions first.
 3. Maximum 5 independent questions per round. Ask 1 question at a time when decisions are tightly coupled.
-4. For each question:
-   - State why it affects the analysis.
+4. When asking the user for a decision, do not explain why the question is important; be brief. For each question:
+   - State the concise question directly.
    - Provide bounded, mutually exclusive options.
-   - Provide the recommended option with scientific justification.
+   - Provide a brief recommended option.
 5. The agent researches project facts, code, and documentation; the user makes the decisions.
 6. If an answer is unknown, propose a bounded exploratory check or pilot step.
 

@@ -28,8 +28,8 @@ Use compact, sortable local timestamps: `YYYYMMDD_HHMMSS` (e.g. `20260826_093210
 
 ## Git Tracking, Branches, and Exploratory Lineage
 
-Git tracks code, plans, issues, and all approved environment definitions.
-- **.gitignore**: Must ignore `data/`, `figures/`, `results/`, `logs/`, `reports/`, generated environment directories (`renv/library/`, `.venv/`, `validation/.venv/`), language-specific session files (`.Rhistory`, `.RData`), temporary files, and secrets.
+Git tracks code (`scripts/`, `validation/`), plans (`plans/`), issues (`issues/`), text provenance records (`logs/analysis-index.csv`, `logs/*.md`, `reports/*.md`, `reports/*.tex`), and all approved environment definitions.
+- **.gitignore**: Must ignore `data/`, `figures/`, `results/`, `reports/*.pdf`, LaTeX build intermediates (`*.aux`, `*.bbl`, `*.blg`, `*.fdb_latexmk`, `*.fls`, `*.log`, `*.out`, `*.synctex.gz`, `*.toc`), generated environment directories (`renv/library/`, `.venv/`, `validation/.venv/`), language-specific session files (`.Rhistory`, `.RData`), temporary files, and secrets. Keep `logs/analysis-index.csv`, `logs/*.md`, `reports/*.md`, and `reports/*.tex` tracked in Git.
 - **Mainline vs Exploration**:
   - Mainline accepted work lives on `main`.
   - Non-trivial exploratory tangents (alternative models, transforms, outlier bounds) MUST use a Git branch (e.g. `explore/oxycodone-negbin`).
